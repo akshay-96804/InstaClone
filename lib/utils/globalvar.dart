@@ -6,5 +6,6 @@ final homeScreenItems = [
   Text(''),
   AddPostScreen(),
   Text(''),
-  Text(''),
+  Text('Profile Screen'),
+  // Text(''),
 ];
