@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.active) {
               if (snapshot.hasData) {
+                print("Login User");            
                 return HomeScreen();
               } else if (snapshot.hasError) {
                 return Center(
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
+            print("User LogOut");
             return LoginScreen();
           },
         ),
