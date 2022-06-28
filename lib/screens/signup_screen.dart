@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:insta_clone/resources/auth_methods.dart';
+import 'package:insta_clone/screens/feed_screen.dart';
+import 'package:insta_clone/screens/homeScreen.dart';
+import 'package:insta_clone/screens/login_screen.dart';
 import 'package:insta_clone/utils/colors.dart';
 import 'package:insta_clone/utils/utils.dart';
 import 'package:insta_clone/widgets/text_field_input.dart';
@@ -53,7 +56,6 @@ class _SignUpscreenScreenState extends State<SignUpscreenScreen> {
     print(_passwordController.text);
     print(_userNameController.text);
 
-
     String res = await AuthMethods().signUpUser(
         email: _emailController.text,
         password: _passwordController.text,
@@ -68,6 +70,10 @@ class _SignUpscreenScreenState extends State<SignUpscreenScreen> {
     setState(() {
       _isLoading = false;
     });
+
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (context) => HomeScreen()),
+    );
   }
 
   @override
@@ -132,6 +138,7 @@ class _SignUpscreenScreenState extends State<SignUpscreenScreen> {
                   textEditingController: _bioController,
                   hintText: 'Enter bio',
                   textInputType: TextInputType.text),
+               SizedBox(height: 25.0),   
               GestureDetector(
                 onTap: signUpUser,
                 // () async {
@@ -145,7 +152,6 @@ class _SignUpscreenScreenState extends State<SignUpscreenScreen> {
                 // },
 
                 child: Container(
-                    
                     width: double.infinity,
                     alignment: Alignment.center,
                     decoration: const ShapeDecoration(
@@ -156,30 +162,40 @@ class _SignUpscreenScreenState extends State<SignUpscreenScreen> {
                     padding: const EdgeInsets.symmetric(vertical: 12.0),
                     child: _isLoading
                         ? const Center(
-                          
                             child: CircularProgressIndicator(
-                            backgroundColor: primaryColor,
+                              backgroundColor: primaryColor,
                             ),
                           )
                         : const Text('Sign Up')),
               ),
               const SizedBox(height: 12.0),
               Flexible(child: Container(), flex: 2),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    child: const Text('Dont have an account ?'),
-                    padding: EdgeInsets.symmetric(vertical: 8.0),
-                  ),
-                  Container(
-                    child: const Text(
-                      'Log In',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      child: const Text('Dont have an account ?'),
+                      padding: EdgeInsets.symmetric(vertical: 8.0),
                     ),
-                    padding: EdgeInsets.symmetric(vertical: 8.0),
-                  )
-                ],
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
+                      },
+                      child: Container(
+                        child: const Text(
+                          'Log In',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 8.0),
+                      ),
+                    )
+                  ],
+                ),
               )
             ],
           ),
