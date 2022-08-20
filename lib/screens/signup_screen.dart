@@ -89,31 +89,26 @@ class _SignUpscreenScreenState extends State<SignUpscreenScreen> {
               // Flexible(child: Container(), flex: 2),
               // SvgPicture.asset('assets/ic_instagram.svg',
               //     color: primaryColor, height: 64.0),
-              SizedBox(height: 64.0),
-              Stack(
-                children: [
-                  _image != null
-                      ? CircleAvatar(
-                          radius: 64.0,
-                          backgroundImage: MemoryImage(_image!),
-                        )
-                      : const CircleAvatar(
-                          radius: 64.0,
-                          backgroundImage: NetworkImage(
-                              'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'),
-                        ),
-                  Positioned(
-                      bottom: -10,
-                      left: 80,
-                      child: IconButton(
-                        color: Colors.red,
-                        icon: const Icon(Icons.add_a_photo),
-                        onPressed: () {
-                          _selectImage();
+              SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(height: 64.0),
+              _image != null
+                      ?CircleAvatar(
+                            radius: 64.0,
+                            backgroundImage: MemoryImage(_image!),
+                          )
+                      :  GestureDetector(
+                        onTap: (){
+                            _selectImage();
                         },
-                      ))
-                ],
-              ),
+                        child: (
+                        const CircleAvatar(
+                            radius: 64.0,
+                            backgroundImage: NetworkImage(
+                                'https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg'),
+                          )
+                      )),
               const SizedBox(
                 height: 24.0,
               ),
@@ -167,6 +162,9 @@ class _SignUpscreenScreenState extends State<SignUpscreenScreen> {
                             ),
                           )
                         : const Text('Sign Up')),
+              ),
+                  ],
+                ),
               ),
               const SizedBox(height: 12.0),
               Flexible(child: Container(), flex: 2),
