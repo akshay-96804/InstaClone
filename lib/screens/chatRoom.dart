@@ -35,13 +35,15 @@ class _ChatRoomState extends State<ChatRoom> {
   }
   TextEditingController msgController = TextEditingController();
 
-  sendMessage(String msg) {}
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(recieverName,style: TextStyle(color: Colors.white),),
+        iconTheme: IconThemeData(
+          color: Colors.black
+        ),
+        backgroundColor: Colors.white,
+        title: Text(recieverName,style: TextStyle(color: Colors.black),),
       ),
       body: Column(
         children: [
