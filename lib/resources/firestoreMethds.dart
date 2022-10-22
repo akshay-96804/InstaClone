@@ -3,8 +3,11 @@ import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:insta_clone/models/post.dart';
+import 'package:insta_clone/providers/authProvider.dart';
 import 'package:insta_clone/resources/storage_methods.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 
 class FirestoreMethods {
@@ -13,6 +16,7 @@ class FirestoreMethods {
   Future<String> uploadPost(String description, Uint8List file, String uid,
       String username, String profImage) async {
     String res = "Some Error Occurred";
+    
     try {
       String photoUrl =
           await StorageMethods().uploadImageToFirebase('posts', file, true);
@@ -38,6 +42,7 @@ class FirestoreMethods {
 
   Future<String> likePost(String postId, String uid, List likes) async {
     String res = "Some error occurred";
+    
     try {
       if (likes.contains(uid)) {
         // if the likes list contains the user uid, we need to remove it
@@ -86,6 +91,7 @@ class FirestoreMethods {
       DocumentSnapshot snap =
           await _firebaseFirestore.collection('users').doc(uid).get();
       List following = (snap.data()! as dynamic)['following'];
+      // List following = snap[''];
 
       if (following.contains(followId)) {
         await _firebaseFirestore.collection('users').doc(followId).update({
@@ -109,7 +115,8 @@ class FirestoreMethods {
     }
   }
 
-  Future<void> createChat(String sender, String reciever, String chatId,String receiverUid) async {
+  Future<void> createChat(String sender, String reciever, String chatId,String receiverUid,String photoUrl,String userPhotoUrl) async {
+
     await _firebaseFirestore
         .collection('users')
         .doc(FirebaseAuth.instance.currentUser!.uid)
@@ -118,7 +125,8 @@ class FirestoreMethods {
         .set({
           'sender': sender, 
           'reciever': reciever,
-          'recieveruid' : receiverUid
+          'recieveruid' : receiverUid,
+          'recieverImg':photoUrl
           });
 
   await _firebaseFirestore
@@ -129,7 +137,8 @@ class FirestoreMethods {
         .set({
           'sender': reciever, 
           'reciever': sender,
-          'recieveruid' : FirebaseAuth.instance.currentUser!.uid
+          'recieveruid' : FirebaseAuth.instance.currentUser!.uid,
+          'recieverImg': userPhotoUrl
           });      
 
   }
