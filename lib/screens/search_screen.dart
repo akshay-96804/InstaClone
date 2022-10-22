@@ -32,9 +32,10 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: mobileBackgroundColor,
+        elevation: 2.0,
+        backgroundColor: Colors.white,
         centerTitle: false,
-        title: Text('Photogram', style: TextStyle(color: Colors.white)),
+        title: Text('Photogram', style: TextStyle(color: Colors.black)),
         
       ),
       body: Column(
@@ -60,8 +61,7 @@ class _SearchScreenState extends State<SearchScreen> {
           isShowUsers
               ? StreamBuilder<QuerySnapshot>(
                   stream: FirebaseFirestore.instance
-                      .collection('users')
-                      .where('username', isEqualTo: searchText)
+                      .collection('users').where('username',isEqualTo: searchText)
                       .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
@@ -93,14 +93,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           );
                         });
                   })
-              : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Center(
-            child: Text("Search For Users"),
-          ),
-                ],
-              ),
+              : Expanded(
+                child: Center(child: Text('Search For Users')))
           
         ],
       ),
