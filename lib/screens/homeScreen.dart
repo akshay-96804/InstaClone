@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:insta_clone/providers/authProvider.dart';
 import 'package:insta_clone/providers/userProvider.dart';
 import 'package:insta_clone/resources/auth_methods.dart';
 import 'package:insta_clone/screens/add_post_screen.dart';
@@ -29,6 +30,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+      // print("In ths Func");
+
     addData();
     pageController = PageController();
   }
@@ -50,17 +53,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   addData() async {
-    //  userUid = ;
-    UserProvider _userProvider =
-        Provider.of<UserProvider>(context, listen: false);
-    await _userProvider.refreshUser();
-    print(_userProvider.getuser.uid);
+    print("In ths Func");
+    await Provider.of<AuthProvider>(context,listen: false).fetchUser();
+    print("PhotoUrl is "+Provider.of<AuthProvider>(context,listen: false).getPhtotUrl);
+    // // print(Provider.of<AuthProvider>(context,listen: false).getUsername);
+    // // print(Provider.of<AuthProvider>(context,listen: false).getUserBio);
+    // // print(Provider.of<AuthProvider>(context,listen: false).getUserEmail);
   }
 
   @override
   Widget build(BuildContext context) {
-    // model.User user = Provider.of<UserProvider>(context).getuser ;
-    // print(user);
 
     return Scaffold(
       body: PageView(
@@ -78,13 +80,13 @@ class _HomeScreenState extends State<HomeScreen> {
           ]),
       bottomNavigationBar: CupertinoTabBar(
         onTap: navigationTapped,
-        backgroundColor: mobileBackgroundColor,
+        backgroundColor: Colors.white,
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.home,
                   color: _page == 0 ? primaryColor : secondaryColor),
               label: '',
-              backgroundColor: primaryColor),
+              backgroundColor: Colors.black),
           BottomNavigationBarItem(
               icon: Icon(Icons.search,
                   color: _page == 1 ? primaryColor : secondaryColor),
