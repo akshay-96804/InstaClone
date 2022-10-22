@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:insta_clone/models/user.dart';
+import 'package:insta_clone/providers/authProvider.dart';
 import 'package:insta_clone/providers/userProvider.dart';
 import 'package:insta_clone/resources/firestoreMethds.dart';
 import 'package:insta_clone/utils/colors.dart';
@@ -27,7 +28,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final User user = Provider.of<UserProvider>(context).getuser;
+    // final User user = Provider.of<UserProvider>(context).getuser;
 
     return Scaffold(
       appBar: AppBar(
@@ -42,8 +43,8 @@ class _CommentsScreenState extends State<CommentsScreen> {
           if(snapshot.connectionState == ConnectionState.waiting){
             return Center(child: CircularProgressIndicator());
           }
-
-         return  
+          if(snapshot.hasData){
+            return  
          ListView.builder(
            itemCount: snapshot.data?.docs.length,
            itemBuilder: (context,index){
@@ -51,6 +52,10 @@ class _CommentsScreenState extends State<CommentsScreen> {
             snap: snapshot.data?.docs[index],
           );
          }) ;
+          }
+          return Center(
+            child: Text("No Comments"),
+          );
         },
         stream: FirebaseFirestore.instance.collection('posts').doc(widget.snap['postId']).collection('comments').orderBy('datePublished',descending: true).snapshots(),
       ),
@@ -63,7 +68,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
           child: Row(
             children: [
               CircleAvatar(
-                backgroundImage: NetworkImage(user.photoUrl),
+                backgroundImage: NetworkImage(Provider.of<AuthProvider>(context,listen: false).getPhtotUrl),
               ),
               Expanded(
                 child: Padding(
@@ -71,7 +76,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   child: TextField(
                     controller: commentEditingController,
                     decoration: InputDecoration(
-                      hintText: 'Comment as ${user.username}',
+                      hintText: 'Comment as ${Provider.of<AuthProvider>(context,listen: false).username}',
                       border: InputBorder.none,
                     ),
                   ),
@@ -82,9 +87,9 @@ class _CommentsScreenState extends State<CommentsScreen> {
                   FirestoreMethods().postComment(
                       widget.snap['postId'],
                       commentEditingController.text,
-                      user.uid,
-                      user.username,
-                      user.photoUrl);
+                      Provider.of<AuthProvider>(context,listen: false).userid,
+                      Provider.of<AuthProvider>(context,listen: false).getUsername,
+                      Provider.of<AuthProvider>(context,listen: false).getPhtotUrl);
 
                    commentEditingController.clear();  
                 },
