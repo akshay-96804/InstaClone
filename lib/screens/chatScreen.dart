@@ -9,7 +9,12 @@ class ChatsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("View Chats",style: TextStyle(color: Colors.white)),
+        iconTheme: IconThemeData(
+          color: Colors.black
+        ),
+        elevation: 2.0,
+        backgroundColor: Colors.white,
+        title: Text("View Chats",style: TextStyle(color: Colors.black)),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
@@ -26,20 +31,20 @@ class ChatsScreen extends StatelessWidget {
               return ListView.builder(
                   itemCount: snapshot.data!.docs.length,
                   itemBuilder: (context, index) {
-                    // DocumentSnapshot _doc = FirebaseFirestore.instance.collection('users').doc().get();
                     return ListTile(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context){
                           return ChatRoom(snapshot.data!.docs[index].id); 
                         }));
                       },
-                      // leading: CircleAvatar(
-                      //   backgroundImage: NetworkImage(snapshot.data),
-                      // ),
-                      title:
-                          Text(snapshot.data!.docs[index].data()['reciever']),
+                      title: Text(snapshot.data!.docs[index].data()['reciever']),
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(snapshot.data!.docs[index].data()['recieverImg']),
+                      ),
+                     subtitle: Text('Tap To Chat'), 
                     );
-                  });
+                  }
+              );
             }
           }
           return Center(child: Text("No Chats were found."));
