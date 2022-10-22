@@ -16,17 +16,17 @@ class FeedScreen extends StatelessWidget {
 
     return Scaffold(
       appBar:  AppBar(
-              backgroundColor: mobileBackgroundColor,
+              elevation: 2.0,
+              backgroundColor: Colors.white,
               centerTitle: false,
-              title: Text('Photogram',style: TextStyle(color: Colors.white)),
+              title: Text('Photogram',style: TextStyle(color: Colors.black)),
               actions: [
                 IconButton(
                   icon: const Icon(
                     Icons.messenger_outline,
-                    color: primaryColor,
+                    color: Colors.black
                   ),
                   onPressed: () {
-                    // print("Sign out tapped");
 
                     Navigator.push(context, MaterialPageRoute(builder: (_){
                       return ChatsScreen(); 
