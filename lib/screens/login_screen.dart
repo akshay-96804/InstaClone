@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:insta_clone/providers/authProvider.dart';
 // import 'package:flutter_svg/flutter_svg.dart';
 import 'package:insta_clone/resources/auth_methods.dart';
 import 'package:insta_clone/screens/homeScreen.dart';
+import 'package:insta_clone/screens/registerPage.dart';
 import 'package:insta_clone/screens/signup_screen.dart';
 import 'package:insta_clone/utils/colors.dart';
 import 'package:insta_clone/utils/utils.dart';
 import 'package:insta_clone/widgets/text_field_input.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -28,20 +31,20 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void logInUser() async {
-    String res = await AuthMethods().logInUser(
-        email: _emailController.text, password: _passwordController.text);
     setState(() {
       _isLoading = true;
     });
 
-    // if (res == "Success") {
-    //   Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
-    // } else {
-    //   showSnackBar(res, context);
-    // }
-    setState(() {
+    String res = await Provider.of<AuthProvider>(context,listen: false).logInUser(_emailController.text, _passwordController.text);
+  
+    if (res == "Success") {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>HomeScreen()));
+    } else {
+      setState(() {
       _isLoading = false;
     });
+      showSnackBar(res, context);
+    }
   }
 
   @override
@@ -108,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>SignUpscreenScreen()));
+                        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>RegisterPage()));
                       },
                       child: Container(
                         child: const Text(
