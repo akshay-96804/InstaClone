@@ -1,10 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:insta_clone/resources/auth_methods.dart';
-import 'package:insta_clone/screens/chatRoom.dart';
 import 'package:insta_clone/screens/chatScreen.dart';
-import 'package:insta_clone/utils/colors.dart';
 import 'package:insta_clone/widgets/post_card.dart';
 
 class FeedScreen extends StatelessWidget {
@@ -59,28 +55,7 @@ class FeedScreen extends StatelessWidget {
         );
           }
         
-      ),
-        //  body: StreamBuilder(
-        //    builder: (context,AsyncSnapshot<QuerySnapshot<Map<String,dynamic>>> snapshot){
-        //      if(snapshot.hasData){
-        //        return ListView.builder(
-        //        itemCount: snapshot.data!.docs.length,
-        //        itemBuilder: (context,index){
-        //          return PostCard(
-        //            snap : snapshot.data!.docs[index]
-        //          );
-        //       }
-        //        );
-        //      }
-        //     //  if(snapshot.connectionState == ConnectionState.waiting){
-        //     //    return Center(child: CircularProgressIndicator());
-        //     //  }
-        //      return  Center(child: CircularProgressIndicator());
-        //     //  Container(); 
-             
-        //    },
-        //    stream: FirebaseFirestore.instance.collection('posts').orderBy('datePublished',descending: true).snapshots(),
-        //  ),   
+      ),  
     );
   }
 }

@@ -1,11 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:insta_clone/models/user.dart';
 import 'package:insta_clone/providers/authProvider.dart';
-import 'package:insta_clone/providers/userProvider.dart';
 import 'package:insta_clone/resources/firestoreMethds.dart';
-import 'package:insta_clone/utils/colors.dart';
 import 'package:insta_clone/widgets/comments_card.dart';
 import 'package:provider/provider.dart';
 
@@ -28,13 +24,15 @@ class _CommentsScreenState extends State<CommentsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // final User user = Provider.of<UserProvider>(context).getuser;
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: mobileBackgroundColor,
+        iconTheme: IconThemeData(color: Colors.black),
+        backgroundColor: Colors.white,
+        elevation: 2.0,
         title: const Text(
           'Comments',
+          style: TextStyle(color: Colors.black),
         ),
         centerTitle: false,
       ),

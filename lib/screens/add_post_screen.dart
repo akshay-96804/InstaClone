@@ -1,18 +1,14 @@
-import 'dart:ffi';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:insta_clone/models/user.dart';
 import 'package:insta_clone/providers/authProvider.dart';
-import 'package:insta_clone/providers/userProvider.dart';
 import 'package:insta_clone/resources/firestoreMethds.dart';
 import 'package:insta_clone/utils/colors.dart';
 import 'package:insta_clone/utils/utils.dart';
 import 'package:provider/provider.dart';
 
 class AddPostScreen extends StatefulWidget {
-  // const AddPostScreen({ Key? key }) : super(key: key);
 
   @override
   State<AddPostScreen> createState() => _AddPostScreenState();

@@ -5,7 +5,6 @@ import 'package:insta_clone/providers/authProvider.dart';
 import 'package:insta_clone/resources/auth_methods.dart';
 import 'package:insta_clone/resources/firestoreMethds.dart';
 import 'package:insta_clone/screens/chatRoom.dart';
-import 'package:insta_clone/screens/chatScreen.dart';
 import 'package:insta_clone/screens/login_screen.dart';
 import 'package:insta_clone/utils/colors.dart';
 import 'package:insta_clone/utils/utils.dart';
@@ -114,13 +113,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         Expanded(
-                            flex: 1,
                             child: Padding(
                               padding: const EdgeInsets.only(top: 12.0),
                               child: Column(
                                 children: [
                                   Row(
-                                    mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
@@ -135,24 +132,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     children: [
                                       FirebaseAuth.instance.currentUser!.uid ==
                                               widget.uid
-                                          ? FollowButton(
-                                              text: 'Sign Out',
-                                              backgroundColor:
-                                                  primaryColor,
-                                              textColor: secondaryColor,
-                                              borderColor: Colors.grey,
-                                              function: () async {
-                                                await AuthMethods().signOut();
+                                          ? Expanded(
+                                            child: FollowButton(
+                                                text: 'Sign Out',
+                                                backgroundColor:
+                                                    secondaryColor,
+                                                textColor: primaryColor,
+                                                borderColor: Colors.grey,
+                                                function: () async {
+                                                  Provider.of<AuthProvider>(context,listen: false).signOut();
 
-                                                Navigator.of(context)
-                                                    .pushReplacement(
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        const LoginScreen(),
-                                                  ),
-                                                );
-                                              },
-                                            )
+                                                  // Navigator.of(context)
+                                                  //     .pushReplacement(
+                                                  //   MaterialPageRoute(
+                                                  //     builder: (context) =>
+                                                  //         const LoginScreen(),
+                                                  //   ),
+                                                  // );
+                                                },
+                                              ),
+                                          )
                                           : isFollowing
                                               ? Column(
                                                   children: [

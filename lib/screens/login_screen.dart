@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:insta_clone/providers/authProvider.dart';
-// import 'package:flutter_svg/flutter_svg.dart';
-import 'package:insta_clone/resources/auth_methods.dart';
 import 'package:insta_clone/screens/homeScreen.dart';
 import 'package:insta_clone/screens/registerPage.dart';
-import 'package:insta_clone/screens/signup_screen.dart';
 import 'package:insta_clone/utils/colors.dart';
 import 'package:insta_clone/utils/utils.dart';
 import 'package:insta_clone/widgets/text_field_input.dart';
@@ -23,12 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   bool _isLoading = false;
 
-  @override
-  void dispose() {
-    super.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-  }
 
   void logInUser() async {
     setState(() {
@@ -58,9 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
             // crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Flexible(child: Container(), flex: 2),
-              
-              // SizedBox(height: 64.0),
-              Padding(
+                Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Text("PhotoGram",style: TextStyle(
                   letterSpacing: 1.5,

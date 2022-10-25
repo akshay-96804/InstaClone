@@ -81,7 +81,6 @@ class AuthProvider extends ChangeNotifier{
     userid = userCredential.user!.uid ;
     print(userid);
 
-    // notifyListeners();
     return "Success" ;
 
     } on FirebaseAuthException catch (e) {
@@ -128,9 +127,12 @@ class AuthProvider extends ChangeNotifier{
           'following': [],
           'photoUrl' : photoUrl
     });
-
-
   }
+
+  Future<void> signOut() async{
+      await  _firebaseAuth.signOut();
+      notifyListeners();
+   }
 
 
 }
